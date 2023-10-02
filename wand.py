@@ -87,7 +87,6 @@ class WAND:
                 if doc_id_pointed == self.pivot:
                     self.cur_doc = self.pivot
                     self.evaluate_document(self.cur_doc)
-                    self.fully_evaluated_docs += 1
                 else:
                     aterm = self.pick_term()
                     self.set_next_pointer(aterm, self.pivot)
@@ -110,6 +109,8 @@ class WAND:
             self.threshold = result[-1][-1]
                 
         self.result = result
+        self.fully_evaluated_docs += 1
+
 
 def assert_test_case(k, expected, index):
     wand = WAND(index, k)
@@ -132,6 +133,6 @@ if __name__ == '__main__':
     assert_test_case(2, [(6, 3.5), (1, 3.4000000000000004)], idx)
     assert_test_case(3, [(6, 3.5), (1, 3.4000000000000004), (11, 3.4000000000000004)], idx)
     
-    wand = WAND(idx, 1)
+    wand = WAND(idx, 3)
     print(wand.start_querying())
     print(wand.fully_evaluated_docs)
